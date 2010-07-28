@@ -175,34 +175,34 @@ if [ -z "$1" ]; then
 fi
 
 while [ -n "$1" ]; do
-	case $1 in
-		stats|start|stop|restart|flush|backup)
-		  $1
-		  shift 1
-		  break
-		  ;;
-		-s)
-		  stats
-		  shift 1
-		  break
-		  ;;
-		-h)
-			help
-			shift 1
-			break
-			;;
-		-v)
-		  echo "$SCRIPT_NAME v$VERSION"
-		  shift 1
-      exit 0
-		  break
-		  ;;
-		*)
-			echo "Error: no such option '$1'. Use -h for help";
-		  shift 1
+  case $1 in
+    stats|start|stop|restart|flush|backup)
+      $1
+      shift 1
       break
-			;;
-	esac
+      ;;
+    -s)
+      stats
+      shift 1
+      break
+      ;;
+    -h)
+      help
+      shift 1
+      break
+      ;;
+    -v)
+      echo "$SCRIPT_NAME v$VERSION"
+      shift 1
+      exit 0
+      break
+      ;;
+    *)
+      echo "Error: no such option '$1'. Use -h for help";
+      shift 1
+      break
+      ;;
+  esac
 done
 
 exit 0
