@@ -6,7 +6,7 @@
 #==================================================================
 
 SCRIPT_NAME="Cam Control Script"
-VERSION="0.0.3"
+VERSION="0.0.4"
 
 CAM_SITE=/home/citrus/domains/cam.citrusme.com/current
 CAM_IMAGE_DIR=$CAM_SITE/images
@@ -184,6 +184,10 @@ flush() {
   fi
 }
 
+settings() {
+  sudo vi /usr/local/etc/motion.conf
+}
+
 install() {
   echo "$SCRIPT_NAME will require authorization to be installed."
   sudo cp ./cam /usr/local/bin
@@ -203,7 +207,7 @@ fi
 
 while [ -n "$1" ]; do
   case $1 in
-    stats|start|stop|restart|flush|backup|backups|images|install)
+    stats|start|stop|restart|flush|backup|backups|images|settings|install)
       $1
       shift 1
       break
