@@ -95,10 +95,10 @@ stats() {
   
 Camera Statistics
 ------------------------------------
- Status:           `get_status`
- Process ID:       `get_pid`
- Total Images:     `get_count`
- Recording since:  `get_start`
+ Status:        `get_status`
+ Process ID:    `get_pid`
+ Total Images:  `get_count`
+ Running since: `get_start`
   
 STATS
   exit 0
@@ -123,9 +123,10 @@ stop() {
   if [ `get_pid` -gt 0 ]; then
     echo "Stopping Camera, PID `get_pid`.."
     sudo kill `get_pid`
-    sleep 2
+    sleep 3
     if [ `get_pid` -eq 0 ]; then
       echo "Camera stopped."
+      echo "" > $CAM_SITE/log/cam.start
     else
       echo "Camera failed to stop."
     fi
