@@ -6,7 +6,7 @@
 #==================================================================
 
 SCRIPT_NAME="Cam Control Script"
-VERSION="0.0.2"
+VERSION="0.0.3"
 
 CAM_SITE=/home/citrus/domains/cam.citrusme.com/current
 CAM_IMAGE_DIR=$CAM_SITE/images
@@ -74,7 +74,10 @@ TASKS
   [stats, -s] shows camera stats
   [restart]   restarts camera
   [backup]    backs up camera images
+  [backups]   cd to backup directory
+  [images]    cd to image directory
   [flush]     flushes image directory
+  [install]   copies this script to /usr/local/bin
   [-h]        help
   [-v]        version
   
@@ -156,6 +159,24 @@ backup() {
   
 }
 
+backups() {
+  if [ -d $CAM_IMAGE_BACKUP ]; then
+    cd $CAM_IMAGE_BACKUP
+    ls
+  else
+    echo "Backup folder does not exist!"
+  fi
+}
+
+images() {
+  if [ -d $CAM_IMAGE_DIR ]; then
+    cd $CAM_IMAGE_DIR
+    ls
+  else
+    echo "Image folder does not exist!"
+  fi
+}
+
 flush() {
   echo "Deleting `get_count` images.."
   if [ -d $CAM_IMAGE_DIR ];then 
@@ -163,7 +184,12 @@ flush() {
   fi
 }
 
-
+install() {
+  echo "$SCRIPT_NAME will require authorization to be installed."
+  sudo cp ./cam /usr/local/bin
+  sudo chmod a+x /usr/local/bin/cam 
+  echo "Installation complete!"
+}
 
 
 #==================================================================
@@ -177,7 +203,7 @@ fi
 
 while [ -n "$1" ]; do
   case $1 in
-    stats|start|stop|restart|flush|backup)
+    stats|start|stop|restart|flush|backup|backups|images|install)
       $1
       shift 1
       break
@@ -207,4 +233,3 @@ while [ -n "$1" ]; do
 done
 
 exit 0
-
